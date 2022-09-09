@@ -38,6 +38,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Furthest Background
+    uniqueID: 4005560095
+    locked: 0
+  - name: Background 1
+    uniqueID: 3383190139
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
