@@ -89,6 +89,15 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HighJump"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad117ed3-66c3-4695-a21e-3e98e6f3ce5b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -282,18 +291,7 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""991153af-d12a-4b8c-b10f-e667ef30f597"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""WallJump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""267cce15-cbe6-4379-8845-4fb3bcd79fe4"",
-                    ""path"": ""<Keyboard>/a"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -320,6 +318,17 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d5ce595c-2c8b-4768-b463-09131111e281"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""HighJump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -914,6 +923,7 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
         m_Player_WallJump = m_Player.FindAction("WallJump", throwIfNotFound: true);
         m_Player_WallHang = m_Player.FindAction("WallHang", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
+        m_Player_HighJump = m_Player.FindAction("HighJump", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -992,6 +1002,7 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_WallJump;
     private readonly InputAction m_Player_WallHang;
     private readonly InputAction m_Player_Dash;
+    private readonly InputAction m_Player_HighJump;
     public struct PlayerActions
     {
         private @SummerGameJam m_Wrapper;
@@ -1003,6 +1014,7 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
         public InputAction @WallJump => m_Wrapper.m_Player_WallJump;
         public InputAction @WallHang => m_Wrapper.m_Player_WallHang;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
+        public InputAction @HighJump => m_Wrapper.m_Player_HighJump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1033,6 +1045,9 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                 @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @HighJump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHighJump;
+                @HighJump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHighJump;
+                @HighJump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHighJump;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1058,6 +1073,9 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @HighJump.started += instance.OnHighJump;
+                @HighJump.performed += instance.OnHighJump;
+                @HighJump.canceled += instance.OnHighJump;
             }
         }
     }
@@ -1221,6 +1239,7 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
         void OnWallJump(InputAction.CallbackContext context);
         void OnWallHang(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnHighJump(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
