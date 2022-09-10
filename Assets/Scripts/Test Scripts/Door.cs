@@ -11,26 +11,37 @@ public class Door : MonoBehaviour
     private float height;
     [SerializeField] private float openPos;
     [SerializeField] private float speed;
-    private Vector3 ground;
+    private bool doesOpen;
 
     private void Start()
     {
-        ground = transform.position;
-        door.transform.position = new Vector3(door.transform.position.x, ground.y + 1.92f);
-        openPos = ground.y + openPos;
+        door.transform.position = new Vector3(door.transform.position.x, transform.position.y + 1.92f);
+        openPos = transform.position.y + openPos;
+        doesOpen = false;
     }
 
     private void Update()
     {
-        door.transform.position = Vector3.MoveTowards(door.transform.position, new Vector3(ground.x, openPos), speed * Time.deltaTime);
+        if (doesOpen)
+        {
+            door.transform.position = Vector3.MoveTowards(door.transform.position,
+                new Vector3(transform.position.x, openPos), speed * Time.deltaTime);
+        }
+    }
+
+    public void OpenDoor()
+    {
+        doesOpen = true;
     }
 
     void OnDrawGizmosSelected()
     {
+        var position = transform.position;
+        
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(ground - new Vector3(0.5f, 0), ground + new Vector3(0.5f, 0));
+        Gizmos.DrawLine(position - new Vector3(0.5f, 0), position + new Vector3(0.5f, 0));
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(ground, new Vector3(ground.x, openPos));
+        Gizmos.DrawLine(position, new Vector3(position.x, openPos));
     }
 
 }
