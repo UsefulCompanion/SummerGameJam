@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
     private bool wallJumpLeft = true;
     private bool wallJumpRight = true;
     private int dash = 2;
+    private bool walledR = false;
+    private bool walledL = false;
 
     #endregion
 
@@ -116,6 +118,8 @@ public class PlayerController : MonoBehaviour
         wallJumpLeft = true;
         wallJumpRight = true;
         dash = 2;
+        walledL = false;
+        walledR = false;
     }
 
     public void SetSpawn(Transform transform)
@@ -169,21 +173,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+    private Coroutine cor;
     public void WallHangRight(InputAction.CallbackContext ctx)
     {
-        Debug.Log(ctx.phase);
         if (ctx.started && !Grounded())
         {
             
-            if (WalledR() && !walled)
+            if (WalledR() && (!walled || !walledR))
             {
                 walled = true;
-                StartCoroutine(DisableGravity(rigidbody));
+                walledR = true;
+                cor = StartCoroutine(DisableGravity(rigidbody));
             }
         }
         if (ctx.canceled)
-        {
+        { 
+            if (cor != null)
+            {
+                StopCoroutine(cor);
+            }
             rigidbody.gravityScale = 5f;
             WallJump(ctx);
         }
@@ -193,14 +201,19 @@ public class PlayerController : MonoBehaviour
     {
         if(ctx.started && !Grounded())
         {
-            if(WalledL() && !walled)
+            if(WalledL() && (!walled || !walledL))
             {
                 walled = true;
-                StartCoroutine(DisableGravity(rigidbody));
+                walledL = true;
+                cor = StartCoroutine(DisableGravity(rigidbody));
             }
         }
         if(ctx.canceled)
         {
+            if (cor != null)
+            {
+                StopCoroutine(cor);
+            }
             rigidbody.gravityScale = 5f;
             WallJump(ctx);
         }
