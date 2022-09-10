@@ -36,14 +36,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float highJumpForce;
 
+    [SerializeField]
+    private Transform spawn;
+
     #endregion
 
     #region resources
 
-    public bool highjump = true;
-    public bool wallJumpLeft = true;
-    public bool wallJumpRight = true;
-    public int dash = 2;
+    private bool highjump = true;
+    private bool wallJumpLeft = true;
+    private bool wallJumpRight = true;
+    private int dash = 2;
 
     #endregion
 
@@ -51,7 +54,9 @@ public class PlayerController : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
+        transform.position = spawn.position;
     }
+
 
     private void FixedUpdate()
     {
@@ -81,6 +86,12 @@ public class PlayerController : MonoBehaviour
             rigidbody.gravityScale = 5f;
             wallJumpAvailable = false;
         }
+
+        if(transform.position.y < -10f)
+        {
+            transform.position = spawn.position;
+        }
+
     }
 
     public bool Grounded()
@@ -96,6 +107,28 @@ public class PlayerController : MonoBehaviour
     public bool WalledL()
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, -Vector2.right, .1f, ground);
+    }
+
+    public void ResetAbilities()
+    {
+        highjump = true;
+        wallJumpLeft = true;
+        wallJumpRight = true;
+        dash = 2;
+    }
+
+    public void SetSpawn(Transform transform)
+    {
+        spawn = transform;
+    }
+
+    public void ResetToSpawn(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            transform.position = spawn.position;
+            ResetAbilities();
+        }
     }
 
     #region Basic Controls

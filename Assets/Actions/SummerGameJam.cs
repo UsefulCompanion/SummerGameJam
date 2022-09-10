@@ -98,6 +98,15 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetToLastSpawn"",
+                    ""type"": ""Button"",
+                    ""id"": ""91c00fa6-318e-4827-b8e6-4144eafc7266"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -329,6 +338,17 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""HighJump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5f109dee-5dcb-41a1-93fe-734261ac0df0"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ResetToLastSpawn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -924,6 +944,7 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
         m_Player_WallHang = m_Player.FindAction("WallHang", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_HighJump = m_Player.FindAction("HighJump", throwIfNotFound: true);
+        m_Player_ResetToLastSpawn = m_Player.FindAction("ResetToLastSpawn", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1003,6 +1024,7 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_WallHang;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_HighJump;
+    private readonly InputAction m_Player_ResetToLastSpawn;
     public struct PlayerActions
     {
         private @SummerGameJam m_Wrapper;
@@ -1015,6 +1037,7 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
         public InputAction @WallHang => m_Wrapper.m_Player_WallHang;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @HighJump => m_Wrapper.m_Player_HighJump;
+        public InputAction @ResetToLastSpawn => m_Wrapper.m_Player_ResetToLastSpawn;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1048,6 +1071,9 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                 @HighJump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHighJump;
                 @HighJump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHighJump;
                 @HighJump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHighJump;
+                @ResetToLastSpawn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetToLastSpawn;
+                @ResetToLastSpawn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetToLastSpawn;
+                @ResetToLastSpawn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetToLastSpawn;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1076,6 +1102,9 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                 @HighJump.started += instance.OnHighJump;
                 @HighJump.performed += instance.OnHighJump;
                 @HighJump.canceled += instance.OnHighJump;
+                @ResetToLastSpawn.started += instance.OnResetToLastSpawn;
+                @ResetToLastSpawn.performed += instance.OnResetToLastSpawn;
+                @ResetToLastSpawn.canceled += instance.OnResetToLastSpawn;
             }
         }
     }
@@ -1240,6 +1269,7 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
         void OnWallHang(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnHighJump(InputAction.CallbackContext context);
+        void OnResetToLastSpawn(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

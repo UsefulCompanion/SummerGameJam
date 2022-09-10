@@ -146,8 +146,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e041ed39027874a41a821519e9b18a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 7
   jumpForce: 21
   ground:
     serializedVersion: 2
     m_Bits: 9
+  wallJumpVelocity: {x: 10, y: 15}
+  dashAvailable: 1
+  dashSpeed: 3
+  highJumpForce: 28
+  spawn: {fileID: 0}
