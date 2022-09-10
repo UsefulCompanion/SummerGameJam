@@ -170,18 +170,36 @@ public class PlayerController : MonoBehaviour
     }
 
     
-    public void WallHang(InputAction.CallbackContext ctx)
+    public void WallHangRight(InputAction.CallbackContext ctx)
     {
+        Debug.Log(ctx.phase);
         if (ctx.started && !Grounded())
         {
-
-            if ((WalledR() || WalledL()) && !walled)
+            
+            if (WalledR() && !walled)
             {
                 walled = true;
                 StartCoroutine(DisableGravity(rigidbody));
             }
         }
         if (ctx.canceled)
+        {
+            rigidbody.gravityScale = 5f;
+            WallJump(ctx);
+        }
+    }
+
+    public void WallHangLeft(InputAction.CallbackContext ctx)
+    {
+        if(ctx.started && !Grounded())
+        {
+            if(WalledL() && !walled)
+            {
+                walled = true;
+                StartCoroutine(DisableGravity(rigidbody));
+            }
+        }
+        if(ctx.canceled)
         {
             rigidbody.gravityScale = 5f;
             WallJump(ctx);

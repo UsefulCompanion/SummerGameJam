@@ -73,7 +73,7 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""WallHang"",
+                    ""name"": ""WallHangL"",
                     ""type"": ""Button"",
                     ""id"": ""bb048e28-18e8-481d-8f7c-071791010851"",
                     ""expectedControlType"": ""Button"",
@@ -103,6 +103,15 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                     ""name"": ""ResetToLastSpawn"",
                     ""type"": ""Button"",
                     ""id"": ""91c00fa6-318e-4827-b8e6-4144eafc7266"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WallHangR"",
+                    ""type"": ""Button"",
+                    ""id"": ""5548e924-bd50-4c8e-b61d-62ff41f1667e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -311,11 +320,11 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""954a945a-f7a0-4d4d-801a-ad7605efe7a3"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""WallHang"",
+                    ""action"": ""WallHangL"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -333,7 +342,7 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d5ce595c-2c8b-4768-b463-09131111e281"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/alt"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -349,6 +358,17 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""ResetToLastSpawn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""029a7f36-3823-4e0f-bf4f-fa1fef2d259a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WallHangR"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -941,10 +961,11 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_WallJump = m_Player.FindAction("WallJump", throwIfNotFound: true);
-        m_Player_WallHang = m_Player.FindAction("WallHang", throwIfNotFound: true);
+        m_Player_WallHangL = m_Player.FindAction("WallHangL", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_HighJump = m_Player.FindAction("HighJump", throwIfNotFound: true);
         m_Player_ResetToLastSpawn = m_Player.FindAction("ResetToLastSpawn", throwIfNotFound: true);
+        m_Player_WallHangR = m_Player.FindAction("WallHangR", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1021,10 +1042,11 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_WallJump;
-    private readonly InputAction m_Player_WallHang;
+    private readonly InputAction m_Player_WallHangL;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_HighJump;
     private readonly InputAction m_Player_ResetToLastSpawn;
+    private readonly InputAction m_Player_WallHangR;
     public struct PlayerActions
     {
         private @SummerGameJam m_Wrapper;
@@ -1034,10 +1056,11 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @WallJump => m_Wrapper.m_Player_WallJump;
-        public InputAction @WallHang => m_Wrapper.m_Player_WallHang;
+        public InputAction @WallHangL => m_Wrapper.m_Player_WallHangL;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @HighJump => m_Wrapper.m_Player_HighJump;
         public InputAction @ResetToLastSpawn => m_Wrapper.m_Player_ResetToLastSpawn;
+        public InputAction @WallHangR => m_Wrapper.m_Player_WallHangR;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1062,9 +1085,9 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                 @WallJump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallJump;
                 @WallJump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallJump;
                 @WallJump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallJump;
-                @WallHang.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallHang;
-                @WallHang.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallHang;
-                @WallHang.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallHang;
+                @WallHangL.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallHangL;
+                @WallHangL.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallHangL;
+                @WallHangL.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallHangL;
                 @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
@@ -1074,6 +1097,9 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                 @ResetToLastSpawn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetToLastSpawn;
                 @ResetToLastSpawn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetToLastSpawn;
                 @ResetToLastSpawn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetToLastSpawn;
+                @WallHangR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallHangR;
+                @WallHangR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallHangR;
+                @WallHangR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallHangR;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1093,9 +1119,9 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                 @WallJump.started += instance.OnWallJump;
                 @WallJump.performed += instance.OnWallJump;
                 @WallJump.canceled += instance.OnWallJump;
-                @WallHang.started += instance.OnWallHang;
-                @WallHang.performed += instance.OnWallHang;
-                @WallHang.canceled += instance.OnWallHang;
+                @WallHangL.started += instance.OnWallHangL;
+                @WallHangL.performed += instance.OnWallHangL;
+                @WallHangL.canceled += instance.OnWallHangL;
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
@@ -1105,6 +1131,9 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                 @ResetToLastSpawn.started += instance.OnResetToLastSpawn;
                 @ResetToLastSpawn.performed += instance.OnResetToLastSpawn;
                 @ResetToLastSpawn.canceled += instance.OnResetToLastSpawn;
+                @WallHangR.started += instance.OnWallHangR;
+                @WallHangR.performed += instance.OnWallHangR;
+                @WallHangR.canceled += instance.OnWallHangR;
             }
         }
     }
@@ -1266,10 +1295,11 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnWallJump(InputAction.CallbackContext context);
-        void OnWallHang(InputAction.CallbackContext context);
+        void OnWallHangL(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnHighJump(InputAction.CallbackContext context);
         void OnResetToLastSpawn(InputAction.CallbackContext context);
+        void OnWallHangR(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

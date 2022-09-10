@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "WallHang",
+                    "name": "WallHangL",
                     "type": "Button",
                     "id": "bb048e28-18e8-481d-8f7c-071791010851",
                     "expectedControlType": "Button",
@@ -81,6 +81,15 @@
                     "name": "ResetToLastSpawn",
                     "type": "Button",
                     "id": "91c00fa6-318e-4827-b8e6-4144eafc7266",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WallHangR",
+                    "type": "Button",
+                    "id": "5548e924-bd50-4c8e-b61d-62ff41f1667e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -289,11 +298,11 @@
                 {
                     "name": "",
                     "id": "954a945a-f7a0-4d4d-801a-ad7605efe7a3",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "WallHang",
+                    "action": "WallHangL",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -311,7 +320,7 @@
                 {
                     "name": "",
                     "id": "d5ce595c-2c8b-4768-b463-09131111e281",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/alt",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -327,6 +336,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "ResetToLastSpawn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "029a7f36-3823-4e0f-bf4f-fa1fef2d259a",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WallHangR",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
