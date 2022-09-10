@@ -71,6 +71,24 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WallHang"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb048e28-18e8-481d-8f7c-071791010851"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""6d93ceff-a090-47bf-ac8c-7ca2636bfcd9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -269,6 +287,39 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""WallJump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""267cce15-cbe6-4379-8845-4fb3bcd79fe4"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""WallJump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""954a945a-f7a0-4d4d-801a-ad7605efe7a3"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""WallHang"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14993068-e337-4b97-8daa-1a37e9ebb51a"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -861,6 +912,8 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_WallJump = m_Player.FindAction("WallJump", throwIfNotFound: true);
+        m_Player_WallHang = m_Player.FindAction("WallHang", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -937,6 +990,8 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_WallJump;
+    private readonly InputAction m_Player_WallHang;
+    private readonly InputAction m_Player_Dash;
     public struct PlayerActions
     {
         private @SummerGameJam m_Wrapper;
@@ -946,6 +1001,8 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @WallJump => m_Wrapper.m_Player_WallJump;
+        public InputAction @WallHang => m_Wrapper.m_Player_WallHang;
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -970,6 +1027,12 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                 @WallJump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallJump;
                 @WallJump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallJump;
                 @WallJump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallJump;
+                @WallHang.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallHang;
+                @WallHang.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallHang;
+                @WallHang.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallHang;
+                @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -989,6 +1052,12 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
                 @WallJump.started += instance.OnWallJump;
                 @WallJump.performed += instance.OnWallJump;
                 @WallJump.canceled += instance.OnWallJump;
+                @WallHang.started += instance.OnWallHang;
+                @WallHang.performed += instance.OnWallHang;
+                @WallHang.canceled += instance.OnWallHang;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
             }
         }
     }
@@ -1150,6 +1219,8 @@ public partial class @SummerGameJam : IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnWallJump(InputAction.CallbackContext context);
+        void OnWallHang(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
