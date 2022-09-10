@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 2315210559196965465}
-  parallaxEffect: 1.1
+  parallaxEffect: 0
 --- !u!1 &2315210558742219977
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 2315210559196965465}
-  parallaxEffect: 2.12
+  parallaxEffect: 0.11
 --- !u!1 &2315210558770932252
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,7 +890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 2315210559196965465}
-  parallaxEffect: 1.6
+  parallaxEffect: 0.06
 --- !u!1 &2315210559196965465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,7 +1160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 2315210559196965465}
-  parallaxEffect: 1.2
+  parallaxEffect: 0.02
 --- !u!1 &2315210559824155578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,4 +1465,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 2315210559196965465}
-  parallaxEffect: 1.3
+  parallaxEffect: 0.03
