@@ -33,6 +33,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float dashSpeed;
     private bool dashing = false;
+    [SerializeField]
+    private float highJumpForce;
+
+    #endregion
+
+    #region resources
+
+    public bool highjump = true;
+    public bool wallJumpLeft = true;
+    public bool wallJumpRight = true;
+    public int dash = 2;
 
     #endregion
 
@@ -108,6 +119,22 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void HighJump(InputAction.CallbackContext ctx)
+    {
+        if(ctx.started)
+        {
+            Debug.Log("highjump");
+            if (Grounded() && highjump)
+            {
+                
+                Vector2 jumpvel = new Vector2(rigidbody.velocity.x, highJumpForce);
+                rigidbody.velocity = jumpvel + direction;
+                highjump = false;
+                
+            }
+        }
+    }
+
     
     public void WallHang(InputAction.CallbackContext ctx)
     {
@@ -131,28 +158,31 @@ public class PlayerController : MonoBehaviour
     {
         if (ctx.started && wallJumpAvailable)
         {
-            if (WalledR())
+            if (WalledR() && wallJumpRight)
             {
                 Vector2 jumpvel = new Vector2(-wallJumpVelocity.x, wallJumpVelocity.y);
                 rigidbody.velocity = jumpvel;
+                wallJumpRight = false;
             }
-            if (WalledL())
+            if (WalledL() && wallJumpLeft)
             {
                 Vector2 jumpvel = wallJumpVelocity;
                 rigidbody.velocity = jumpvel;
+                wallJumpLeft = false;
             }
         }
     }
 
     public void Dash(InputAction.CallbackContext ctx)
     {
-        if (ctx.started && dashAvailable)
+        if (ctx.started && dashAvailable && dash > 0)
         {
             dashAvailable = false;
             dashing = true;
-            rigidbody.velocity = new Vector2(rigidbody.velocity.x * 3f, rigidbody.velocity.y);
+            rigidbody.velocity = new Vector2(rigidbody.velocity.x * dashSpeed, rigidbody.velocity.y);
             StartCoroutine(DashControl());
             StartCoroutine(DashDelay());
+            dash--;
         }
     }
 
