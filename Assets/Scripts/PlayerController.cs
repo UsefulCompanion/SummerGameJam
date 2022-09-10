@@ -74,14 +74,22 @@ public class PlayerController : MonoBehaviour
     {
         if (ctx.started && wallJumpAvailable)
         {
-            Vector2 jumpvel = new Vector2(-10f, 10f);
-            rigidbody.velocity = jumpvel;
+            if (WalledR())
+            {
+                Vector2 jumpvel = new Vector2(-10f, 10f);
+                rigidbody.velocity = jumpvel;
+            }
+            if (WalledL())
+            {
+                Vector2 jumpvel = new Vector2(10f, 10f);
+                rigidbody.velocity = jumpvel;
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        if (Grounded() || walled) { 
+        if (Grounded()) { 
             Vector2 right = transform.right;
 
             right.y = 0f;
