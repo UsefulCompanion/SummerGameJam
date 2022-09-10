@@ -11,7 +11,7 @@ public class Door : MonoBehaviour
     private float height;
     [SerializeField] private float openPos;
     [SerializeField] private float speed;
-    private bool doesOpen;
+    public bool doesOpen;
 
     private void Start()
     {
@@ -27,11 +27,6 @@ public class Door : MonoBehaviour
             door.transform.position = Vector3.MoveTowards(door.transform.position,
                 new Vector3(transform.position.x, openPos), speed * Time.deltaTime);
         }
-    }
-
-    public void OpenDoor()
-    {
-        doesOpen = true;
     }
 
     void OnDrawGizmosSelected()

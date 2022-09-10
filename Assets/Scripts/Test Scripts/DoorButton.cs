@@ -4,28 +4,16 @@ using UnityEngine;
 
 public class DoorButton : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject doorFrame;
 
-    // Update is called once per frame
-    void Update()
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        
-    }
-
-    public void OnTriggerEnter()
-    {
-        
+        doorFrame.GetComponent<Door>().doesOpen = true;
     }
     
     void OnDrawGizmosSelected()
     {
-        var position = transform.position;
-        
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, 0.5f);
+        Gizmos.DrawSphere(transform.position, 0.1f);
     }
 }
