@@ -161,7 +161,6 @@ public class PlayerController : MonoBehaviour
     {
         if(ctx.started)
         {
-            Debug.Log("highjump");
             if (Grounded() && highjump)
             {
                 
