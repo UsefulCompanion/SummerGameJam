@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     private Transform spawn;
     [SerializeField]
     private GameObject explosion;
+    [SerializeField]
+    private GameObject dashParticle;
 
     private bool dPressed = false;
     private bool aPressed = false;
@@ -296,7 +298,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(DashControl());
             StartCoroutine(DashDelay());
             dash--;
-            Instantiate(explosion, new Vector3(coll.bounds.center.x, coll.bounds.center.y-.2f, coll.bounds.center.z), new Quaternion());
+            Instantiate(dashParticle, new Vector3(coll.bounds.center.x, coll.bounds.center.y-.2f, coll.bounds.center.z), new Quaternion());
         }
     }
 
