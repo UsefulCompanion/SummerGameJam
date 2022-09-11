@@ -4,19 +4,10 @@ using UnityEngine;
 
 public class ParticleSelfDestruct : MonoBehaviour
 {
-
-    [SerializeField]
-    private List<AudioSource> sounds;
     private void Start()
     {
-        StartCoroutine(DestroyAfterTime());
+        Destroy(this.gameObject, 1f);
         
-    }
-
-    private IEnumerator DestroyAfterTime()
-    {
-        yield return new WaitForSeconds(.75f);
-        Destroy(this.gameObject);
     }
 
 }
