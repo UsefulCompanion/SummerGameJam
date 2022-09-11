@@ -41,6 +41,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject explosion;
 
+    private bool dPressed = false;
+    private bool aPressed = false;
+    
+
     #endregion
 
     #region resources
@@ -143,6 +147,22 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext ctx)
     {
         direction = ctx.ReadValue<Vector2>();
+        if (ctx.started && ctx.ReadValue<Vector2>().x < 0f)
+        {
+            aPressed = true;
+        }
+        if(ctx.canceled && aPressed && !dPressed)
+        {
+            aPressed = false;
+        }
+        if (ctx.started && ctx.ReadValue<Vector2>().x > 0f)
+        {
+            dPressed = true;
+        }
+        if (ctx.canceled && !aPressed && !dPressed)
+        {
+            dPressed = false;
+        }
     }
 
     public void Jump(InputAction.CallbackContext ctx)
