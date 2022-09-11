@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
     private Coroutine cor;
     public void WallHangRight(InputAction.CallbackContext ctx)
     {
-        if (ctx.started && !Grounded())
+        if (ctx.started && !Grounded() && ctx.ReadValue<Vector2>().x > 0f)
         {
             
             if (WalledR() && (!walled || !walledR))
@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
 
     public void WallHangLeft(InputAction.CallbackContext ctx)
     {
-        if(ctx.started && !Grounded())
+        if(ctx.started && !Grounded() && ctx.ReadValue<Vector2>().x < 0f)
         {
             if(WalledL() && (!walled || !walledL))
             {
