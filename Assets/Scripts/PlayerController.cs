@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Transform spawn;
+    [SerializeField]
+    private GameObject explosion;
 
     #endregion
 
@@ -167,7 +169,7 @@ public class PlayerController : MonoBehaviour
                 Vector2 jumpvel = new Vector2(rigidbody.velocity.x, highJumpForce);
                 rigidbody.velocity = jumpvel + direction;
                 highjump = false;
-                
+                Instantiate(explosion, new Vector3(coll.bounds.center.x, coll.bounds.center.y, coll.bounds.center.z), new Quaternion());
             }
         }
     }
@@ -227,12 +229,14 @@ public class PlayerController : MonoBehaviour
                 Vector2 jumpvel = new Vector2(-wallJumpVelocity.x, wallJumpVelocity.y);
                 rigidbody.velocity = jumpvel;
                 wallJumpRight = false;
+                Instantiate(explosion, new Vector3(coll.bounds.center.x+.2f, coll.bounds.center.y+.2f, coll.bounds.center.z), new Quaternion());
             }
             if (WalledL() && wallJumpLeft)
             {
                 Vector2 jumpvel = wallJumpVelocity;
                 rigidbody.velocity = jumpvel;
                 wallJumpLeft = false;
+                Instantiate(explosion, new Vector3(coll.bounds.center.x-.2f, coll.bounds.center.y+.2f, coll.bounds.center.z), new Quaternion());
             }
         }
     }
@@ -247,6 +251,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(DashControl());
             StartCoroutine(DashDelay());
             dash--;
+            Instantiate(explosion, new Vector3(coll.bounds.center.x, coll.bounds.center.y-.2f, coll.bounds.center.z), new Quaternion());
         }
     }
 
