@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,6 +48,12 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    public Animator animator_body;
+    public Animator animator_larm;
+    public Animator animator_rarm;
+    public Animator animator_lleg;
+    public Animator animator_rleg;
+
     #region resources
 
     private bool highjump = true;
@@ -65,6 +72,24 @@ public class PlayerController : MonoBehaviour
         transform.position = spawn.position;
     }
 
+    private void Update()
+    {
+        animator_body.SetFloat("Speed", Mathf.Abs(moveSpeed));
+        animator_body.SetBool("IsWalled", walled);
+        animator_body.SetBool("IsGrounded", Grounded());
+        animator_larm.SetFloat("Speed", Mathf.Abs(moveSpeed));
+        animator_larm.SetBool("IsWalled", walled);
+        animator_larm.SetBool("IsGrounded", Grounded());
+        animator_rarm.SetFloat("Speed", Mathf.Abs(moveSpeed));
+        animator_rarm.SetBool("IsWalled", walled);
+        animator_rarm.SetBool("IsGrounded", Grounded());
+        animator_lleg.SetFloat("Speed", Mathf.Abs(moveSpeed));
+        animator_lleg.SetBool("IsWalled", walled);
+        animator_lleg.SetBool("IsGrounded", Grounded());
+        animator_rleg.SetFloat("Speed", Mathf.Abs(moveSpeed));
+        animator_rleg.SetBool("IsWalled", walled);
+        animator_rleg.SetBool("IsGrounded", Grounded());
+    }
 
     private void FixedUpdate()
     {
