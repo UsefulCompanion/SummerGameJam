@@ -523,5 +523,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 369386794924911097, guid: 31226e84878f30e4292a998652eaba63, type: 3}
+      propertyPath: m_Name
+      value: Sandro
+      objectReference: {fileID: 0}
+    - target: {fileID: 369386794924911099, guid: 31226e84878f30e4292a998652eaba63, type: 3}
+      propertyPath: m_text
+      value: Alessandro Schreiber
+      objectReference: {fileID: 0}
+    - target: {fileID: 369386795164780676, guid: 31226e84878f30e4292a998652eaba63, type: 3}
+      propertyPath: m_Name
+      value: Robert
+      objectReference: {fileID: 0}
+    - target: {fileID: 369386795164780678, guid: 31226e84878f30e4292a998652eaba63, type: 3}
+      propertyPath: m_text
+      value: Robert Uskov
+      objectReference: {fileID: 0}
+    - target: {fileID: 369386796007829670, guid: 31226e84878f30e4292a998652eaba63, type: 3}
+      propertyPath: m_Name
+      value: Nepo
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31226e84878f30e4292a998652eaba63, type: 3}
