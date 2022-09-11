@@ -12,12 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Sandboxes/Sandro/Level_1.unity
-    guid: 00a68626e323cbb47b8503fd30b7ea21
+    path: Assets/Scenes/Levels/Tutorial.unity
+    guid: 8b51878d3e001dd43a2674cbbd768e0b
   - enabled: 1
-    path: Assets/Scenes/Sandboxes/Sandro/Level_2.unity
+    path: Assets/Scenes/Sandboxes/Sandro/Level_1.unity
     guid: f3ecb2eb6e3efbf468cb242b56702603
   - enabled: 1
     path: Assets/Scenes/Sandboxes/Sandro/Level_3.unity
     guid: 36ff87ef1555f714c8c428b5c5afb816
+  - enabled: 1
+    path: Assets/Scenes/Sandboxes/Sandro/FinalLevel.unity
+    guid: 00a68626e323cbb47b8503fd30b7ea21
   m_configObjects: {}

@@ -156,3 +156,5 @@ MonoBehaviour:
   dashSpeed: 3
   highJumpForce: 28
   spawn: {fileID: 0}
+  explosion: {fileID: 296305085481866795, guid: 464039fb0f6bbc044adbd2569afd7ee0, type: 3}
+  dashParticle: {fileID: 4320016738331548162, guid: c40d116fbcd6d5b479b8fafcc9844aea, type: 3}
