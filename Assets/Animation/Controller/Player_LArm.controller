@@ -188,13 +188,13 @@ AnimatorController:
   m_Name: Player_LArm
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: IsWalled
+  - m_Name: IsGrounded
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 0}
-  - m_Name: IsGrounded
+  - m_Name: IsWalled
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
