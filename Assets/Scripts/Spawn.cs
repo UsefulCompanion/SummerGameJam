@@ -6,6 +6,6 @@ public class Spawn : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.gameObject.GetComponent<PlayerController>().SetSpawn(transform);
+        //collision.gameObject.GetComponent<PlayerController>().SetSpawn(transform);
     }
 }

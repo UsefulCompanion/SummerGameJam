@@ -48,8 +48,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: PlayerLeft
+    uniqueID: 3636155741
+    locked: 0
   - name: Player
     uniqueID: 541205729
+    locked: 0
+  - name: PlayerRight
+    uniqueID: 3786067699
+    locked: 0
+  - name: New Layer 7
+    uniqueID: 3901627659
     locked: 0
   - name: Foreground
     uniqueID: 2353735475

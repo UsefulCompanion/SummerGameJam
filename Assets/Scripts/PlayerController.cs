@@ -50,12 +50,6 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    public Animator animator_body;
-    public Animator animator_larm;
-    public Animator animator_rarm;
-    public Animator animator_lleg;
-    public Animator animator_rleg;
-
     #region resources
 
     private bool highjump = true;
@@ -72,29 +66,50 @@ public class PlayerController : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         transform.position = spawn.position;
+        
     }
 
-    private void Update()
+    #region animation
+
+    [SerializeField]
+    private GameObject headBodyPart;
+    [SerializeField]
+    private GameObject bodyBodyPart;
+    [SerializeField]
+    private GameObject LArmBodyPart;
+    [SerializeField]
+    private GameObject RArmBodyPart;
+    [SerializeField]
+    private GameObject LLegBodyPart;
+    [SerializeField]
+    private GameObject RLegBodyPart;
+
+    private void BodyAnimation(GameObject bodyPart, float running)
     {
-        animator_body.SetFloat("Speed", Mathf.Abs(moveSpeed));
-        animator_body.SetBool("IsWalled", walled);
-        animator_body.SetBool("IsGrounded", Grounded());
-        animator_larm.SetFloat("Speed", Mathf.Abs(moveSpeed));
-        animator_larm.SetBool("IsWalled", walled);
-        animator_larm.SetBool("IsGrounded", Grounded());
-        animator_rarm.SetFloat("Speed", Mathf.Abs(moveSpeed));
-        animator_rarm.SetBool("IsWalled", walled);
-        animator_rarm.SetBool("IsGrounded", Grounded());
-        animator_lleg.SetFloat("Speed", Mathf.Abs(moveSpeed));
-        animator_lleg.SetBool("IsWalled", walled);
-        animator_lleg.SetBool("IsGrounded", Grounded());
-        animator_rleg.SetFloat("Speed", Mathf.Abs(moveSpeed));
-        animator_rleg.SetBool("IsWalled", walled);
-        animator_rleg.SetBool("IsGrounded", Grounded());
+        bodyPart.GetComponent<Animator>().SetFloat("Running", running);
+        bodyPart.GetComponent<Animator>().SetBool("Grounded", Grounded());
     }
+
+    private float running;
+    private void PlayAnimations(float running)
+    {
+        BodyAnimation(headBodyPart, running);
+        BodyAnimation(bodyBodyPart, running);
+        BodyAnimation(LArmBodyPart, running);
+        BodyAnimation(RArmBodyPart, running);
+        BodyAnimation(LLegBodyPart, running);
+        BodyAnimation(RLegBodyPart, running);
+    }
+
+
+    #endregion
+
+
 
     private void FixedUpdate()
     {
+        PlayAnimations(running);
+
         if (Grounded() && !dashing)
         {
             Vector2 right = transform.right;
@@ -173,23 +188,19 @@ public class PlayerController : MonoBehaviour
 
     public void Move(InputAction.CallbackContext ctx)
     {
-        direction = ctx.ReadValue<Vector2>();
         if (ctx.started && ctx.ReadValue<Vector2>().x < 0f)
         {
-            aPressed = true;
-        }
-        if(ctx.canceled && aPressed && !dPressed)
-        {
-            aPressed = false;
+            running = ctx.ReadValue<Vector2>().x;
         }
         if (ctx.started && ctx.ReadValue<Vector2>().x > 0f)
         {
-            dPressed = true;
+            running = ctx.ReadValue<Vector2>().x;
         }
-        if (ctx.canceled && !aPressed && !dPressed)
+        if (ctx.canceled)
         {
-            dPressed = false;
+            running = 0f;
         }
+        direction = ctx.ReadValue<Vector2>();
     }
 
     public void Jump(InputAction.CallbackContext ctx)
@@ -199,6 +210,7 @@ public class PlayerController : MonoBehaviour
 
             if (Grounded())
             {
+                bodyBodyPart.GetComponent<Animator>().SetTrigger("Jump");
                 Vector2 jumpvel = new Vector2(rigidbody.velocity.x, jumpForce);
                 rigidbody.velocity = jumpvel + direction;
             }
@@ -212,7 +224,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Grounded() && highjump)
             {
-                
+                bodyBodyPart.GetComponent<Animator>().SetTrigger("HighJump");
                 Vector2 jumpvel = new Vector2(rigidbody.velocity.x, highJumpForce);
                 rigidbody.velocity = jumpvel + direction;
                 highjump = false;
@@ -229,6 +241,7 @@ public class PlayerController : MonoBehaviour
             
             if (WalledR() && (!walled || !walledR))
             {
+                bodyBodyPart.GetComponent<Animator>().SetTrigger("Jump");
                 walled = true;
                 walledR = true;
                 cor = StartCoroutine(DisableGravity(rigidbody));
@@ -298,7 +311,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(DashControl());
             StartCoroutine(DashDelay());
             dash--;
-            Instantiate(dashParticle, new Vector3(coll.bounds.center.x, coll.bounds.center.y-.2f, coll.bounds.center.z), new Quaternion());
+            Instantiate(explosion, new Vector3(coll.bounds.center.x, coll.bounds.center.y-.2f, coll.bounds.center.z), new Quaternion());
         }
     }
 

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2349709909383698252}
   - component: {fileID: 2349709909383698253}
   - component: {fileID: 2349709909383698254}
-  m_Layer: 0
+  - component: {fileID: 1966553311}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2349709909383698255}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.31, y: 1.01, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -95,7 +96,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2349709909383698255}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 7962aed6461cd49478c5ec8602073066, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -127,9 +128,38 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!114 &1966553311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2349709909383698255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e041ed39027874a41a821519e9b18a85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 7
+  jumpForce: 21
+  ground:
+    serializedVersion: 2
+    m_Bits: 9
+  wallJumpVelocity: {x: 10, y: 15}
+  dashAvailable: 1
+  dashSpeed: 3
+  highJumpForce: 28
+  spawn: {fileID: 0}
+  explosion: {fileID: 296305085481866795, guid: 464039fb0f6bbc044adbd2569afd7ee0, type: 3}
+  dashParticle: {fileID: 4320016738331548162, guid: c40d116fbcd6d5b479b8fafcc9844aea, type: 3}
+  animator_body: {fileID: 0}
+  animator_larm: {fileID: 0}
+  animator_rarm: {fileID: 0}
+  animator_lleg: {fileID: 0}
+  animator_rleg: {fileID: 0}
