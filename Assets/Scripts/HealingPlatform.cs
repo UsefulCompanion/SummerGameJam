@@ -8,7 +8,7 @@ public class HealingPlatform : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerController>().ResetAbilities();
+            collision.gameObject.GetComponent<NewPlayerController>().ResetAbilities();
         }
     }
 }

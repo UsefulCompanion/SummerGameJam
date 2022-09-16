@@ -24,6 +24,7 @@ public class NewPlayerController : MonoBehaviour
     private bool isJumping = false;
     private InputAction movement;
     private bool isWallJumping = false;
+    
 
     #region AbilityResources
 
@@ -119,15 +120,19 @@ public class NewPlayerController : MonoBehaviour
         {
             wallJumpLeft = false;
             isWallJumping = true;
+            wallJumpDelay = true;
             Instantiate(explosion, new Vector3(playerCollider.bounds.center.x - .2f, playerCollider.bounds.center.y, playerCollider.bounds.center.z), new Quaternion());
             StartCoroutine("WallJumpTimer");
+            StartCoroutine("WallJumpDelay");
         }
         if (WalledR() && !Grounded() && wallJumpRight)
         {
             wallJumpRight = false;
             isWallJumping = true;
+            wallJumpDelay = true;
             Instantiate(explosion, new Vector3(playerCollider.bounds.center.x + .2f, playerCollider.bounds.center.y, playerCollider.bounds.center.z), new Quaternion());
             StartCoroutine("WallJumpTimer");
+            StartCoroutine("WallJumpDelay");
         }
     }
 
@@ -172,6 +177,11 @@ public class NewPlayerController : MonoBehaviour
         wallJumpRight = true;
     }
 
+    public void SetSpawn(Transform spawn)
+    {
+        Spawn = spawn;
+    }
+
     #endregion
 
     #region UpdateMethods
@@ -181,6 +191,7 @@ public class NewPlayerController : MonoBehaviour
         
     }
 
+    private bool wallJumpDelay = false;
     private void Update()
     {
         if (!Grounded())
@@ -188,6 +199,13 @@ public class NewPlayerController : MonoBehaviour
             WallHang();
         }
         
+        if(isWallJumping && !wallJumpDelay && (WalledL() || WalledR()))
+        {
+            StopCoroutine("WallJumpTimer");
+            isWallJumping = false;
+            Debug.Log("STOP");
+        }
+
         if(Grounded() && isWallJumping)
         {
             StopCoroutine("WallJumpTimer");
@@ -203,6 +221,12 @@ public class NewPlayerController : MonoBehaviour
         if(rigidbody.velocity.x < -2)
         {
             viewDirectionX = -1;
+        }
+
+        if(transform.position.y < -10)
+        {
+            transform.position = Spawn.position;
+            ResetAbilities();
         }
     }
 
@@ -245,7 +269,7 @@ public class NewPlayerController : MonoBehaviour
 
     #endregion
 
-    #region animation
+    #region animation |-------------------------------------------------------------------------------------------------------------------------------------------------
 
     [SerializeField]
     private GameObject headBodyPart;
@@ -282,7 +306,13 @@ public class NewPlayerController : MonoBehaviour
 
     #endregion
 
-    #region Coroutines
+    #region Coroutines |------------------------------------------------------------------------------------------------------------------------------------------------
+
+    private IEnumerator WallJumpDelay()
+    {
+        yield return new WaitForSeconds(.1f);
+        wallJumpDelay = false;
+    }
 
     private IEnumerator WallJumpTimer()
     {
