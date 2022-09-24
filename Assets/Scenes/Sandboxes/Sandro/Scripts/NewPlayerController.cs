@@ -21,10 +21,11 @@ public class NewPlayerController : MonoBehaviour
     private Vector2 direction;
     private Collider2D playerCollider;
     private Vector3 velocity;
+    [SerializeField]
     private bool isJumping = false;
     private InputAction movement;
     private bool isWallJumping = false;
-    
+
 
     #region AbilityResources
 
@@ -93,7 +94,7 @@ public class NewPlayerController : MonoBehaviour
 
     private void DoJump(InputAction.CallbackContext ctx)
     {
-        if (Grounded())
+        if (!isJumping)
         {
             Instantiate(jumpSmoke, new Vector3(playerCollider.bounds.center.x, playerCollider.bounds.center.y - .5f, playerCollider.bounds.center.z), new Quaternion());
             Vector2 jumpvel = new Vector2(rigidbody.velocity.x, jumpForce);
@@ -138,7 +139,7 @@ public class NewPlayerController : MonoBehaviour
 
     private void HighJump(InputAction.CallbackContext ctx)
     {
-        if (Grounded() && highJumpAvailable)
+        if (!isJumping && highJumpAvailable)
         {
             Instantiate(explosion, new Vector3(playerCollider.bounds.center.x, playerCollider.bounds.center.y - .3f, playerCollider.bounds.center.z), new Quaternion());
             highJumpAvailable = false;
@@ -194,6 +195,15 @@ public class NewPlayerController : MonoBehaviour
     private bool wallJumpDelay = false;
     private void Update()
     {
+        if (!isJumping && !Grounded())
+        {
+            StartCoroutine("JumpAvailabilityDelay");
+        } 
+        if(isJumping && Grounded())
+        {
+            isJumping = false;
+        }
+
         if (!Grounded())
         {
             WallHang();
@@ -203,7 +213,6 @@ public class NewPlayerController : MonoBehaviour
         {
             StopCoroutine("WallJumpTimer");
             isWallJumping = false;
-            Debug.Log("STOP");
         }
 
         if(Grounded() && isWallJumping)
@@ -237,13 +246,7 @@ public class NewPlayerController : MonoBehaviour
         
             direction = movement.ReadValue<Vector2>();
 
-            Vector2 right = transform.right;
-
-            right.y = 0f;
-
-            right.Normalize();
-
-            velocity = right * direction.x;
+            velocity = new Vector3(direction.x, 0f);
             velocity *= moveSpeed;
 
             velocity.y = rigidbody.velocity.y;
@@ -307,6 +310,12 @@ public class NewPlayerController : MonoBehaviour
     #endregion
 
     #region Coroutines |------------------------------------------------------------------------------------------------------------------------------------------------
+
+    private IEnumerator JumpAvailabilityDelay()
+    {
+        yield return new WaitForSeconds(.1f);
+        isJumping = true;
+    }
 
     private IEnumerator WallJumpDelay()
     {
