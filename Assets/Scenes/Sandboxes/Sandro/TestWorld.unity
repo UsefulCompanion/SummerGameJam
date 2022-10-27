@@ -13174,7 +13174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01bd423ead6b5b4794a4745f48134dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothTime: 0.2
+  smoothTime: 0.1
   target: {fileID: 1281006130}
 --- !u!1001 &1811096870520851690
 PrefabInstance:
@@ -13183,6 +13183,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1811096870871566915, guid: 3da318d7eaa3ee9409b10dc58a359077, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: da206063c7ec2cf4e98bfbe3b1262172, type: 2}
+    - target: {fileID: 1811096871126093875, guid: 3da318d7eaa3ee9409b10dc58a359077, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: cf0c1da2a93954c4285cc8fabbde3163, type: 2}
+    - target: {fileID: 1811096871202351938, guid: 3da318d7eaa3ee9409b10dc58a359077, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811096871202351938, guid: 3da318d7eaa3ee9409b10dc58a359077, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -658811555
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811096871202351949, guid: 3da318d7eaa3ee9409b10dc58a359077, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 04beced3fce49114298da205f7ac0098, type: 2}
+    - target: {fileID: 1811096871482635338, guid: 3da318d7eaa3ee9409b10dc58a359077, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 508e7647bc047ba45be3857f8eba0df2, type: 2}
     - target: {fileID: 1811096871665211096, guid: 3da318d7eaa3ee9409b10dc58a359077, type: 3}
       propertyPath: m_Name
       value: Player
@@ -13235,5 +13259,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1811096871899970734, guid: 3da318d7eaa3ee9409b10dc58a359077, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1b03ca07beaf524448f6304c0862ac26, type: 2}
+    - target: {fileID: 1811096872039396765, guid: 3da318d7eaa3ee9409b10dc58a359077, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1b03cf6700e17614183e364a85a3038e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3da318d7eaa3ee9409b10dc58a359077, type: 3}
